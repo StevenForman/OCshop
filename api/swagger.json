@@ -1,0 +1,462 @@
+{
+  "openapi": "3.0.2",
+  "info": {
+    "description": "This is an attempt to implement some sort of OpenAPI documentation.",
+    "title": "medvedb2.beget.tech/API",
+    "version": "1.0",
+    "contact": {
+      "name": "Evgen",
+      "email": "medvedevforman@gmail.com"
+    }
+  },
+  "servers": [
+    {
+      "url": "http://medvedb2.beget.tech/api",
+      "description": "Dev server"
+    }
+  ],
+  "paths": {
+    "/get_sushi_info.php": {
+      "get": {
+        "tags": [
+          "Информационные страницы"
+        ],
+        "operationId": "Info",
+        "summary": "Получение информационных страниц",
+        "description": "Получение информационных страниц и конфига магазина.",
+        "responses": {
+        }
+      }
+    },
+    "/get_banners.php": {
+      "get": {
+        "tags": [
+          "Информационные страницы"
+        ],
+        "operationId": "Banners",
+        "summary": "Получение баннеров",
+        "description": "Получение всех баннеров из базы данных",
+        "responses": {
+        }
+      }
+    },
+    "/get_policy.php": {
+      "get": {
+        "tags": [
+          "Информационные страницы"
+        ],
+        "operationId": "Policy",
+        "summary": "Получение политики конфиденциальности",
+        "description": "Получение политики конфиденциальности",
+        "responses": {
+        }
+      }
+    },
+    "/get_sales.php": {
+      "get": {
+        "tags": [
+          "Информационные страницы"
+        ],
+        "operationId": "Sales",
+        "summary": "Получение акций",
+        "description": "Получение акций",
+        "responses": {
+        }
+      }
+    },
+    "/get_categories.php": {
+      "get": {
+        "tags": [
+          "Категории"
+        ],
+        "operationId": "Categories",
+        "summary": "Получение всех категорий",
+        "description": "Получение всех категорий",
+        "responses": {
+        }
+      }
+    },
+    "/get_products_by_id.php": {
+      "get": {
+        "tags": [
+          "Продукты"
+        ],
+        "summary": "Получение продуктов опредленной категории",
+        "parameters": [
+          {
+            "name": "category_id",
+            "example": 80,
+            "in": "query",
+            "required": false,
+            "description": "ID категории"
+          }
+        ],
+        "responses": {}
+      }
+    },
+    "/order/add_order.php": {
+      "post": {
+        "tags": [
+          "Заказы"
+        ],
+        "summary": "Добавление заказа",
+        "parameters": [
+        ],
+        "requestBody": {
+          "description": "Тело заказа",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Order"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Успешный запрос",
+            "content": {
+              "application/json": {
+                "example": {
+                  "status": "success",
+                  "order_id": "9085"
+                }
+              },
+              "description": {
+                "example": "Success"
+              }
+            }
+          }
+        }
+      }
+    },
+	  "/get_orders.php": {
+		  "get": {
+			  "tags": [
+				  "Работа с заками"
+			  ],
+			  "summary": "Получение заказа",
+			  "parameters": [
+				  {
+					  "name": "telephone",
+					  "example": 88005553535,
+					  "in": "query",
+					  "required": false,
+					  "description": "Номер пользователя"
+				  }
+			  ],
+			  "responses": {
+
+			  }
+		  }
+	  },
+	  "/login/sendsms.php": {
+		  "get": {
+			  "tags": [
+				  "Аутентификация"
+			  ],
+			  "summary": "Отправка SMS на номер пользователя",
+			  "parameters": [
+				  {
+					  "name": "telephone",
+					  "example": 88005553535,
+					  "in": "query",
+					  "required": false,
+					  "description": "Телефон пользователя"
+				  },
+				  {
+					  "name": "name",
+					  "example": "Username",
+					  "in": "query",
+					  "required": false,
+					  "description": "Имя пользователя"
+				  }
+			  ],
+			  "responses": {
+				  "200": {
+					  "description": "Успешный запрос",
+					  "content": {
+						  "application/json": {
+							  "example": {
+								  "success": {
+									  "status": "success"
+								  }
+							  }
+						  }
+					  }
+				  }
+			  }
+		  }
+	  },
+	  "/login/checksms.php": {
+		  "get": {
+			  "tags": [
+				  "Аутентификация"
+			  ],
+			  "summary": "Проверка валидности кода из СМС",
+			  "parameters": [
+				  {
+					  "name": "telephone",
+					  "example": 88005553535,
+					  "in": "query",
+					  "required": false,
+					  "description": "Телефон пользователя"
+				  },
+				  {
+					  "name": "sms_code",
+					  "example": "0000",
+					  "in": "query",
+					  "required": false,
+					  "description": "Код из СМС"
+				  }
+			  ],
+			  "responses": {
+				  "200": {
+					  "description": "Успешный запрос",
+					  "content": {
+						  "application/json": {
+							  "example": {
+								  "success": {
+									  "status": "success"
+								  }
+							  }
+						  }
+					  }
+				  }
+			  }
+		  }
+	  },
+	  "/login/generate_token.php": {
+		  "get": {
+			  "tags": [
+				  "Аутентификация"
+			  ],
+			  "summary": "Генерация токена",
+			  "parameters": [
+				  {
+					  "name": "telephone",
+					  "example": 88005553535,
+					  "in": "query",
+					  "required": false,
+					  "description": "Телефон пользователя"
+				  },
+				  {
+					  "name": "sms_code",
+					  "example": "0000",
+					  "in": "query",
+					  "required": false,
+					  "description": "Код из СМС"
+				  }
+			  ],
+			  "responses": {
+
+			  }
+		  }
+	  },
+	  "/login/checktoken.php": {
+		  "get": {
+			  "tags": [
+				  "Аутентификация"
+			  ],
+			  "summary": "Проверка токена",
+			  "parameters": [
+				  {
+					  "name": "mobile_token",
+					  "example": 88005553535,
+					  "in": "query",
+					  "required": false,
+					  "description": "Токен для доступа к приложению"
+				  }
+			  ],
+			  "responses": {
+				  "200": {
+					  "description": "Успешный запрос",
+					  "content": {
+						  "application/json": {
+							  "example": {"status":"error"}
+						  }
+					  }
+				  }
+			  }
+		  }
+	  },
+	  "/add_love_product.php": {
+		  "get": {
+			  "tags": [
+				  "Работа с любимыми продуктами"
+			  ],
+			  "summary": "Добавить продукт в любимые",
+			  "parameters": [
+				  {
+					  "name": "telephone",
+					  "example": 88005553535,
+					  "in": "query",
+					  "required": false,
+					  "description": "Телефон пользователя"
+				  },
+				  {
+					  "name": "product_id",
+					  "example": 333,
+					  "in": "query",
+					  "required": false,
+					  "description": "Id продукта"
+				  }
+			  ],
+			  "responses": {
+				  "200": {
+					  "description": "Успешный запрос",
+					  "content": {
+						  "application/json": {
+							  "example": {"status":"success"}
+						  }
+					  }
+				  }
+			  }
+		  }
+	  },
+	  "/delete_love_product.php": {
+		  "get": {
+			  "tags": [
+				  "Работа с любимыми продуктами"
+			  ],
+			  "summary": "Удалить продукт из любимых",
+			  "parameters": [
+				  {
+					  "name": "telephone",
+					  "example": 88005553535,
+					  "in": "query",
+					  "required": false,
+					  "description": "Телефон пользователя"
+				  },
+				  {
+					  "name": "product_id",
+					  "example": 333,
+					  "in": "query",
+					  "required": false,
+					  "description": "Id продукта"
+				  }
+			  ],
+			  "responses": {
+				  "200": {
+					  "description": "Успешный запрос",
+					  "content": {
+						  "application/json": {
+							  "example": {"status":"success"}
+						  }
+					  }
+				  }
+			  }
+		  }
+	  },
+	  "/get_love_product.php": {
+		  "get": {
+			  "tags": [
+				  "Работа с любимыми продуктами"
+			  ],
+			  "summary": "Получить любимые продукты",
+			  "parameters": [
+				  {
+					  "name": "number",
+					  "example": 88005553535,
+					  "in": "query",
+					  "required": false,
+					  "description": "Телефон пользователя"
+				  }
+			  ],
+			  "responses": {
+
+			  }
+		  }
+	  },
+	  "/send-callback.php": {
+		  "get": {
+			  "tags": [
+				  "Обратная связь"
+			  ],
+			  "summary": "Сообщить о технической проблеме",
+			  "parameters": [
+				  {
+					  "name": "message",
+					  "example": "Тестовый текст",
+					  "in": "query",
+					  "required": false,
+					  "description": "Текст сообщения об ошибке"
+				  }
+			  ],
+			  "responses": {
+				  "200": {
+					  "description": "Успешный запрос",
+					  "content": {
+						  "application/json": {
+							  "example":  {"status":"success"}
+						  }
+					  }
+				  }
+			  }
+		  }
+	  }
+  },
+  "components": {
+    "schemas": {
+      "Order": {
+		 "title": "Тестовое тело для оформления заказа",
+		  
+        "type": "object",
+        "description": "Тестовое тело для оформления заказа",
+        "properties": {
+        },
+        "example": {
+          "order": {
+            "items": [
+              {
+                "line_id": 1,
+                "product_id": "453",
+                "name": "Сет &quot;Для неё&quot;",
+                "price": 1010,
+                "special": 699,
+                "quantity": 1,
+                "coupon_code": false
+              },
+              {
+                "line_id": 2,
+                "product_id": "454",
+                "name": "Сет &quot;Для него&quot;",
+                "price": 1110,
+                "special": 699,
+                "quantity": 1,
+                "coupon_code": false
+              }
+            ],
+            "customer": {
+              "name": "Катышек",
+              "phone": "88005553535"
+            },
+            "comment": "",
+            "total": 1293,
+            "baseTotal": 1398,
+            "coupon": {
+              "coupon_id": "16",
+              "code": "420",
+              "name": "Free Shit",
+              "type": "P",
+              "discount": "15.0000",
+              "shipping": "0",
+              "free_product": [],
+              "total": "0.0000",
+              "product": [
+                "454"
+              ],
+              "date_start": "2021-11-08",
+              "date_end": "2021-11-30",
+              "uses_total": "0",
+              "uses_customer": "6",
+              "status": "1",
+              "date_added": "2021-11-01 13:06:17"
+            }
+          }
+        }
+      }
+    }
+  }
+}
